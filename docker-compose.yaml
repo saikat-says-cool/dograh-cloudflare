@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  dograh:
+    image: ghcr.io/dograh-hq/dograh:latest
+    container_name: dograh-space
+    ports:
+      - "3010:3010"  # UI
+      - "3011:3011"  # API
+      - "3012:3012"  # WebSocket
+    environment:
+      - ENABLE_TELEMETRY=true
+      - NODE_ENV=production
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    networks:
+      - dograh-network
+
+networks:
+  dograh-network:
+    driver: bridge
